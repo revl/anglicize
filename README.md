@@ -1,21 +1,16 @@
-romanize.py
-===========
+# romanize.py
 
 Replace some of the UTF-8 characters in a text with their Latin representations.
 
-Usage
-=====
+## Usage
 
 This is a Python module that can be also used as a command line script.
 
-Usage as a module
------------------
+### Usage as a module
 
-Usage as a command line script
-------------------------------
+### Usage as a command line script
 
-Limitations
-===========
+## Limitations
 
 Currently only Russian characters are romanized, although
 other languages and alphabets can be easily added.
