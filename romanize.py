@@ -15,6 +15,7 @@ object to the romanize() method."""
 
 import xlat_tree
 
+
 class Romanize:
     """Convert a byte sequence of UTF-8 characters to their latin
     transcriptions. See https://en.wikipedia.org/wiki/Romanization
@@ -65,6 +66,7 @@ class Romanize:
             self.__buf = ''
         return finite
 
+
 def main():
     """Apply romanization to all standard input files and print the result."""
     import fileinput
@@ -73,6 +75,7 @@ def main():
 
     for line in fileinput.input():
         print line + ':\t' + romanize.romanize(line)
+
 
 if __name__ == "__main__":
     main()
