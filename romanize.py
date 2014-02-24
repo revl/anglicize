@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Perform romanization of Russian text.
+"""Perform romanization of UTF-8 text.
 
 This file can be used either as a module or as a standalone
 script.
@@ -9,9 +9,11 @@ When used as a script, the input text can be sent to the
 standard input of the script as well as given in the form
 of input files on the command line.
 
-To use the file as a module, import it, create an instance
-of the Romanize class, and pass the input text as an str
-object to the romanize() method."""
+To use the file as a module, first import it, then create
+an instance of the Romanize class, and pass the input text
+as an str object to the romanize() method.
+
+See README.md for more details."""
 
 import xlat_tree
 
