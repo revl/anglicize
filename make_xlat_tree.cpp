@@ -1,6 +1,6 @@
 /*
  * This program generates the xlat_tree.py Python module
- * for use by romanize.py.
+ * for use by anglicize.py.
  *
  * The are no command line arguments -- the program
  * silently creates or overwrites xlat_tree.py in

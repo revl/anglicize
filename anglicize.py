@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Perform romanization of UTF-8 text.
+"""Perform anglicization of UTF-8 text.
 
 This file can be used either as a module or as a standalone
 script.
@@ -10,29 +10,28 @@ standard input of the script as well as given in the form
 of input files on the command line.
 
 To use the file as a module, first import it, then create
-an instance of the Romanize class, and pass the input text
-as an str object to the romanize() method.
+an instance of the Anglicize class, and pass the input text
+as an str object to the anglicize() method.
 
 See README.md for more details."""
 
 import xlat_tree
 
 
-class Romanize:
-    """Convert a byte sequence of UTF-8 characters to their latin
-    transcriptions. See https://en.wikipedia.org/wiki/Romanization
-    for details."""
+class Anglicize:
+    """Convert a byte sequence of UTF-8 characters to their English
+    transcriptions."""
     def __init__(self):
         self.__state = xlat_tree.xlat_tree
         self.__finite = ''
         self.__buf = ''
 
-    def romanize(self, text):
-        """Romanize the supplied text and return the romanized version."""
-        romanized = ''
+    def anglicize(self, text):
+        """Anglicize the supplied text and return the anglicized version."""
+        anglicized = ''
         for char in text:
-            romanized += self.__push(char)
-        return romanized + self.__finalize()
+            anglicized += self.__push(char)
+        return anglicized + self.__finalize()
 
     def __push(self, char):
         """Update the finite state machine of this object."""
@@ -70,13 +69,13 @@ class Romanize:
 
 
 def main():
-    """Apply romanization to all standard input files and print the result."""
+    """Apply anglicization to all standard input files and print the result."""
     import fileinput
 
-    romanize = Romanize()
+    anglicize = Anglicize()
 
     for line in fileinput.input():
-        print line + ':\t' + romanize.romanize(line)
+        print line + ':\t' + anglicize.anglicize(line)
 
 
 if __name__ == "__main__":
