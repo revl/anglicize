@@ -1,6 +1,6 @@
 # anglicize.py
 
-Replace some of the UTF-8 characters in a text with their Latin representations.
+Subsitute English alphabet letters for some of the UTF-8 characters.
 
 ## Usage
 
