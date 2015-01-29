@@ -4,7 +4,29 @@
 xlat_tree = {
     '\xc3': ["", {
         '\x8b': ["Yo", None],
-        '\xab': ["yo", None]
+        '\x93': ["U", None],
+        '\xab': ["yo", None],
+        '\xb3': ["u", None]
+    }],
+    '\xc4': ["", {
+        '\x84': ["O", None],
+        '\x85': ["o", None],
+        '\x86': ["Ch", None],
+        '\x87': ["ch", None],
+        '\x98': ["E", None],
+        '\x99': ["e", None]
+    }],
+    '\xc5': ["", {
+        '\x81': ["W", None],
+        '\x82': ["w", None],
+        '\x83': ["Ny", None],
+        '\x84': ["ny", None],
+        '\x9a': ["Sh", None],
+        '\x9b': ["sh", None],
+        '\xb9': ["Zh", None],
+        '\xba': ["zh", None],
+        '\xbb': ["Zh", None],
+        '\xbc': ["zh", None]
     }],
     '\xd0': ["", {
         '\x81': ["Yo", None],
