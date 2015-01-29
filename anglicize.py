@@ -21,13 +21,14 @@ import xlat_tree
 class Anglicize:
     """Convert a byte sequence of UTF-8 characters to their English
     transcriptions."""
+
     def __init__(self):
         self.__state = xlat_tree.xlat_tree
         self.__finite = ''
         self.__buf = ''
 
     def anglicize(self, text):
-        """Anglicize the supplied text and return the anglicized version."""
+        """Anglicize 'text' and return its anglicized version."""
         anglicized = ''
         for char in text:
             anglicized += self.__push(char)
@@ -35,11 +36,20 @@ class Anglicize:
 
     def __push(self, char):
         """Update the finite state machine of this object."""
-        if not char in self.__state:
+        # Check if there is no transition from the current state
+        # for the given character.
+        if char not in self.__state:
             if self.__state == xlat_tree.xlat_tree:
+                # We're at the start state, which means that
+                # no characters have been accumulated in the output
+                # buffer and the new character also cannot be
+                # converted - return it right away
                 return char
+            # Make sure self.__finalize() is called
+            # *before* self.__push(char).
             finite = self.__finalize()
             return finite + self.__push(char)
+
         new_node = self.__state[char]
         if not new_node[1]:
             self.__state = xlat_tree.xlat_tree
