@@ -1,24 +1,21 @@
 #!/usr/bin/env python
 
-"""Perform anglicization of UTF-8 text.
+"""Perform anglicization of text in UTF-8 encoding.
 
-This file can be used either as a module or as a standalone
-script.
+The script works as a filter: it reads UTF-8 characters from its
+standard input and writes the result to its standard output.
 
-When used as a script, the input text can be sent to the
-standard input of the script as well as given in the form
-of input files on the command line.
+Alternatively, it can be used as a Python module:
 
-To use the file as a module, first import it, then create
-an instance of the Anglicize class, and pass the input text
-as an str object to the anglicize() method.
+    from anglicize import Anglicize
+    anglicize = Anglicize()
+    print anglicize.anglicize(utf8_bytes)
 
 See README.md for more details."""
 
 import xlat_tree
 
-
-class Anglicize:
+class Anglicize(object):
     """Convert a byte sequence of UTF-8 characters to their English
     transcriptions."""
 
@@ -28,65 +25,79 @@ class Anglicize:
         self.__buf = ''
 
     def anglicize(self, text):
-        """Anglicize 'text' and return its anglicized version."""
-        anglicized = ''
-        for char in text:
-            anglicized += self.__push(char)
-        return anglicized + self.__finalize()
+        """Process a whole string and return its anglicized version."""
+        return self.process_buf(text) + self.finalize()
 
-    def __push(self, char):
-        """Update the finite state machine of this object."""
+    def process_buf(self, buf):
+        """Anglicize a buffer. Expect more to come. Keep state between calls."""
+        output = ''
+        for byte in buf:
+            output += self.push_byte(byte)
+        return output
+
+    def push_byte(self, byte):
+        """Input another byte. Return the transliteration when it's ready."""
         # Check if there is no transition from the current state
-        # for the given character.
-        if char not in self.__state:
+        # for the given byte.
+        if byte not in self.__state:
             if self.__state == xlat_tree.xlat_tree:
                 # We're at the start state, which means that
-                # no characters have been accumulated in the output
-                # buffer and the new character also cannot be
+                # no bytes have been accumulated in the
+                # buffer and the new byte also cannot be
                 # converted - return it right away
-                return char
-            # Make sure self.__finalize() is called
-            # *before* self.__push(char).
-            finite = self.__finalize()
-            return finite + self.__push(char)
+                return byte
+            return self.__skip_buf_byte() + self.push_byte(byte)
 
-        new_node = self.__state[char]
+        new_node = self.__state[byte]
         if not new_node[1]:
             self.__state = xlat_tree.xlat_tree
             self.__finite = ''
             self.__buf = ''
-            return new_node[0]
+            return new_node[0] # Cannot be empty.
         self.__state = new_node[1]
         if new_node[0]:
             self.__finite = new_node[0]
             self.__buf = ''
         else:
-            self.__buf += char
+            self.__buf += byte
         return ''
 
-    def __finalize(self):
-        """Process bytes accumulated in self.__buf."""
-        self.__state = xlat_tree.xlat_tree
-        finite = self.__finite
-        self.__finite = ''
-        if self.__buf:
-            buf = self.__buf
-            finite += buf[0]
-            for char in buf[1:]:
-                finite += self.__push(char)
-            self.__buf = ''
-        return finite
+    def finalize(self):
+        """Process and return the remainder of the internal buffer."""
+        output = ''
+        while self.__buf or self.__finite:
+            output += self.__skip_buf_byte()
+        return output
 
+    def __skip_buf_byte(self):
+        """Restart character recognition in the internal buffer."""
+        self.__state = xlat_tree.xlat_tree
+        if self.__finite:
+            output = self.__finite
+            self.__finite = ''
+            buf = self.__buf
+        else:
+            output = self.__buf[0]
+            buf = self.__buf[1:]
+        self.__buf = ''
+        for byte in buf:
+            output += self.push_byte(byte)
+        return output
 
 def main():
-    """Apply anglicization to all standard input files and print the result."""
-    import fileinput
+    """Apply anglicization to the standard input stream and print the result."""
+
+    from sys import stdin, stdout
 
     anglicize = Anglicize()
 
-    for line in fileinput.input():
-        print line + ':\t' + anglicize.anglicize(line)
+    while True:
+        line = stdin.readline(1024)
+        if not line:
+            break
+        stdout.write(anglicize.process_buf(line))
 
+    stdout.write(anglicize.finalize())
 
 if __name__ == "__main__":
     main()
