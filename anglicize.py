@@ -21,7 +21,7 @@ class Anglicize(object):
 
     def __init__(self):
         self.__state = xlat_tree.xlat_tree
-        self.__finite = ''
+        self.__finite_state = None
         self.__buf = ''
 
     def anglicize(self, text):
@@ -48,15 +48,15 @@ class Anglicize(object):
                 return byte
             return self.__skip_buf_byte() + self.push_byte(byte)
 
-        new_node = self.__state[byte]
-        if not new_node[1]:
+        new_state = self.__state[byte]
+        if not new_state[1]:
             self.__state = xlat_tree.xlat_tree
-            self.__finite = ''
+            self.__finite_state = None
             self.__buf = ''
-            return new_node[0] # Cannot be empty.
-        self.__state = new_node[1]
-        if new_node[0]:
-            self.__finite = new_node[0]
+            return new_state[0] # Cannot be empty.
+        self.__state = new_state[1]
+        if new_state[0]:
+            self.__finite_state = new_state
             self.__buf = ''
         else:
             self.__buf += byte
@@ -65,16 +65,16 @@ class Anglicize(object):
     def finalize(self):
         """Process and return the remainder of the internal buffer."""
         output = ''
-        while self.__buf or self.__finite:
+        while self.__buf or self.__finite_state:
             output += self.__skip_buf_byte()
         return output
 
     def __skip_buf_byte(self):
         """Restart character recognition in the internal buffer."""
         self.__state = xlat_tree.xlat_tree
-        if self.__finite:
-            output = self.__finite
-            self.__finite = ''
+        if self.__finite_state:
+            output = self.__finite_state[0]
+            self.__finite_state = None
             buf = self.__buf
         else:
             output = self.__buf[0]
