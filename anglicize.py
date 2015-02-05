@@ -23,6 +23,8 @@ class Anglicize(object):
         self.__state = xlat_tree.xlat_tree
         self.__finite_state = None
         self.__buf = ''
+        self.__capitalization_mode = False
+        self.__first_capital_and_spaces = ''
 
     def anglicize(self, text):
         """Process a whole string and return its anglicized version."""
@@ -45,7 +47,7 @@ class Anglicize(object):
                 # no bytes have been accumulated in the
                 # buffer and the new byte also cannot be
                 # converted - return it right away
-                return byte
+                return self.__hold_spaces_after_capital(byte)
             return self.__skip_buf_byte() + self.push_byte(byte)
 
         new_state = self.__state[byte]
@@ -53,7 +55,7 @@ class Anglicize(object):
             self.__state = xlat_tree.xlat_tree
             self.__finite_state = None
             self.__buf = ''
-            return new_state[0] # Cannot be empty.
+            return self.__hold_first_capital(new_state[0])
         self.__state = new_state[1]
         if new_state[0]:
             self.__finite_state = new_state
@@ -67,21 +69,56 @@ class Anglicize(object):
         output = ''
         while self.__buf or self.__finite_state:
             output += self.__skip_buf_byte()
+        if self.__capitalization_mode:
+            if self.__first_capital_and_spaces:
+                output += self.__first_capital_and_spaces
+            self.__capitalization_mode = False
         return output
 
     def __skip_buf_byte(self):
         """Restart character recognition in the internal buffer."""
         self.__state = xlat_tree.xlat_tree
         if self.__finite_state:
-            output = self.__finite_state[0]
+            output = self.__hold_first_capital(self.__finite_state[0])
             self.__finite_state = None
             buf = self.__buf
         else:
-            output = self.__buf[0]
+            output = self.__hold_spaces_after_capital(self.__buf[0])
             buf = self.__buf[1:]
         self.__buf = ''
         for byte in buf:
             output += self.push_byte(byte)
+        return output
+
+    def __hold_first_capital(self, xlat):
+        """Buffer the first capital letter after a series of lower case ones."""
+        if self.__capitalization_mode:
+            if self.__first_capital_and_spaces:
+                if xlat.istitle():
+                    xlat = self.__first_capital_and_spaces + xlat
+                    self.__first_capital_and_spaces = ''
+                    return xlat.upper()
+                xlat = self.__first_capital_and_spaces + xlat
+            elif xlat.istitle():
+                return xlat.upper()
+            self.__capitalization_mode = False
+        elif xlat.istitle():
+            self.__capitalization_mode = True
+            self.__first_capital_and_spaces = xlat
+            return ''
+        return xlat
+
+    def __hold_spaces_after_capital(self, output):
+        """Buffer spaces after the first capital letter."""
+        if self.__capitalization_mode:
+            if self.__first_capital_and_spaces:
+                if output == ' ':
+                    self.__first_capital_and_spaces += output
+                    return ''
+                output = self.__first_capital_and_spaces + output
+            elif output == ' ':
+                return output
+            self.__capitalization_mode = False
         return output
 
 def main():
