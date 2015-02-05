@@ -7,7 +7,7 @@
  * the current working directory.
  *
  * Please send any improvements, suggestions, and
- * bugfixes to Dmitry Kazimirov <dk@revl.org>
+ * bugfixes to him@revl.org.
  */
 
 #include <stdio.h>
