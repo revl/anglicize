@@ -3,8 +3,14 @@
 
 xlat_tree = {
     '\xc3': ["", {
+        '\x80': ["A", None],
+        '\x81': ["a", None],
+        '\x89': ["E", None],
         '\x8b': ["Yo", None],
         '\x93': ["U", None],
+        '\xa0': ["a", None],
+        '\xa1': ["a", None],
+        '\xa9': ["e", None],
         '\xab': ["yo", None],
         '\xb3': ["u", None]
     }],
