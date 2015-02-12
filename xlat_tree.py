@@ -5,14 +5,20 @@ xlat_tree = {
     '\xc3': ["", {
         '\x80': ["A", None],
         '\x81': ["a", None],
+        '\x84': ["A", None],
+        '\x85': ["A", None],
         '\x89': ["E", None],
         '\x8b': ["Yo", None],
         '\x93': ["U", None],
+        '\x96': ["O", None],
         '\xa0': ["a", None],
         '\xa1': ["a", None],
+        '\xa4': ["a", None],
+        '\xa5': ["a", None],
         '\xa9': ["e", None],
         '\xab': ["yo", None],
-        '\xb3': ["u", None]
+        '\xb3': ["u", None],
+        '\xb6': ["o", None]
     }],
     '\xc4': ["", {
         '\x84': ["O", None],
@@ -29,10 +35,14 @@ xlat_tree = {
         '\x84': ["ny", None],
         '\x9a': ["Sh", None],
         '\x9b': ["sh", None],
+        '\xa0': ["Sh", None],
+        '\xa1': ["sh", None],
         '\xb9': ["Zh", None],
         '\xba': ["zh", None],
         '\xbb': ["Zh", None],
-        '\xbc': ["zh", None]
+        '\xbc': ["zh", None],
+        '\xbd': ["S", None],
+        '\xbe': ["s", None]
     }],
     '\xd0': ["", {
         '\x81': ["Yo", None],
