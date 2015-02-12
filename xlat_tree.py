@@ -46,6 +46,8 @@ xlat_tree = {
     }],
     '\xd0': ["", {
         '\x81': ["Yo", None],
+        '\x86': ["I", None],
+        '\x87': ["Yi", None],
         '\x90': ["A", None],
         '\x91': ["B", None],
         '\x92': ["V", None],
@@ -128,7 +130,13 @@ xlat_tree = {
         '\x8d': ["e", None],
         '\x8e': ["yu", None],
         '\x8f': ["ya", None],
-        '\x91': ["yo", None]
+        '\x91': ["yo", None],
+        '\x96': ["i", None],
+        '\x97': ["yi", None]
+    }],
+    '\xd2': ["", {
+        '\x90': ["G", None],
+        '\x91': ["g", None]
     }],
     '\xe2': ["", {
         '\x80': ["", {
