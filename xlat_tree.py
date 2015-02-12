@@ -5,22 +5,28 @@ xlat_tree = {
     '\xc3': ["", {
         '\x80': ["A", None],
         '\x81': ["a", None],
+        '\x82': ["I", None],
         '\x84': ["A", None],
         '\x85': ["O", None],
         '\x89': ["E", None],
         '\x8b': ["Yo", None],
+        '\x8e': ["I", None],
         '\x93': ["U", None],
         '\x96': ["O", None],
         '\xa0': ["a", None],
         '\xa1': ["a", None],
+        '\xa2': ["i", None],
         '\xa4': ["a", None],
         '\xa5': ["o", None],
         '\xa9': ["e", None],
         '\xab': ["yo", None],
+        '\xae': ["i", None],
         '\xb3': ["u", None],
         '\xb6': ["o", None]
     }],
     '\xc4': ["", {
+        '\x82': ["A", None],
+        '\x83': ["a", None],
         '\x84': ["O", None],
         '\x85': ["o", None],
         '\x86': ["Ch", None],
@@ -43,6 +49,12 @@ xlat_tree = {
         '\xbc': ["zh", None],
         '\xbd': ["S", None],
         '\xbe': ["s", None]
+    }],
+    '\xc8': ["", {
+        '\x98': ["Sh", None],
+        '\x99': ["sh", None],
+        '\x9a': ["Ts", None],
+        '\x9b': ["ts", None]
     }],
     '\xd0': ["", {
         '\x81': ["Yo", None],
@@ -146,7 +158,13 @@ xlat_tree = {
     }],
     '\x41': ["", {
         '\xcc': ["", {
+            '\x86': ["A", None],
             '\x88': ["A", None]
+        }]
+    }],
+    '\x49': ["", {
+        '\xcc': ["", {
+            '\x82': ["I", None]
         }]
     }],
     '\x4f': ["", {
@@ -156,7 +174,13 @@ xlat_tree = {
     }],
     '\x61': ["", {
         '\xcc': ["", {
+            '\x86': ["a", None],
             '\x88': ["a", None]
+        }]
+    }],
+    '\x69': ["", {
+        '\xcc': ["", {
+            '\x82': ["i", None]
         }]
     }],
     '\x6f': ["", {
