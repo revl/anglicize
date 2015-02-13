@@ -22,6 +22,8 @@ static const XLatEntry xlat_entries[] =
 	{"ţ", "ts"},
 	{"Ґ", "G"},
 	{"ґ", "g"},
+	{"Є", "Ye"},
+	{"є", "ye"},
 	{"І", "I"},
 	{"і", "i"},
 	{"Ї", "Yi"},

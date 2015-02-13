@@ -70,6 +70,7 @@ xlat_tree = {
     }],
     '\xd0': ["", {
         '\x81': ["Yo", None],
+        '\x84': ["Ye", None],
         '\x86': ["I", {
             '\xcc': ["", {
                 '\x88': ["Yi", None]
@@ -159,6 +160,7 @@ xlat_tree = {
         '\x8e': ["yu", None],
         '\x8f': ["ya", None],
         '\x91': ["yo", None],
+        '\x94': ["ye", None],
         '\x96': ["i", {
             '\xcc': ["", {
                 '\x88': ["yi", None]
