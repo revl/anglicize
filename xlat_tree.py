@@ -206,6 +206,7 @@ xlat_tree = {
         '\xcc': ["", {
             '\x80': ["A", None],
             '\x81': ["A", None],
+            '\x82': ["I", None],
             '\x83': ["A", None],
             '\x86': ["A", None],
             '\x88': ["A", None],
@@ -267,6 +268,7 @@ xlat_tree = {
         '\xcc': ["", {
             '\x80': ["a", None],
             '\x81': ["a", None],
+            '\x82': ["i", None],
             '\x83': ["a", None],
             '\x86': ["a", None],
             '\x88': ["a", None],
