@@ -6,6 +6,7 @@ xlat_tree = {
         '\x80': ["A", None],
         '\x81': ["A", None],
         '\x82': ["I", None],
+        '\x83': ["A", None],
         '\x84': ["A", None],
         '\x85': ["O", None],
         '\x87': ["S", None],
@@ -19,6 +20,7 @@ xlat_tree = {
         '\x92': ["O", None],
         '\x93': ["U", None],
         '\x94': ["O", None],
+        '\x95': ["O", None],
         '\x96': ["O", None],
         '\x99': ["U", None],
         '\x9a': ["U", None],
@@ -28,6 +30,7 @@ xlat_tree = {
         '\xa0': ["a", None],
         '\xa1': ["a", None],
         '\xa2': ["i", None],
+        '\xa3': ["a", None],
         '\xa4': ["a", None],
         '\xa5': ["o", None],
         '\xa7': ["s", None],
@@ -41,6 +44,7 @@ xlat_tree = {
         '\xb2': ["o", None],
         '\xb3': ["u", None],
         '\xb4': ["o", None],
+        '\xb5': ["o", None],
         '\xb6': ["o", None],
         '\xb9': ["u", None],
         '\xba': ["u", None],
@@ -198,6 +202,7 @@ xlat_tree = {
         '\xcc': ["", {
             '\x80': ["A", None],
             '\x81': ["A", None],
+            '\x83': ["A", None],
             '\x86': ["A", None],
             '\x88': ["A", None],
             '\x8a': ["O", None]
@@ -258,6 +263,7 @@ xlat_tree = {
         '\xcc': ["", {
             '\x80': ["a", None],
             '\x81': ["a", None],
+            '\x83': ["a", None],
             '\x86': ["a", None],
             '\x88': ["a", None],
             '\x8a': ["o", None]
