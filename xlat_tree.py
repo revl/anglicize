@@ -28,6 +28,7 @@ xlat_tree = {
         '\x9a': ["U", None],
         '\x9b': ["U", None],
         '\x9c': ["U", None],
+        '\x9e': ["Th", None],
         '\x9f': ["ss", None],
         '\xa0': ["a", None],
         '\xa1': ["a", None],
@@ -53,7 +54,8 @@ xlat_tree = {
         '\xb9': ["u", None],
         '\xba': ["u", None],
         '\xbb': ["u", None],
-        '\xbc': ["u", None]
+        '\xbc': ["u", None],
+        '\xbe': ["th", None]
     }],
     '\xc4': ["", {
         '\x82': ["A", None],

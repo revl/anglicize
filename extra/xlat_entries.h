@@ -2,6 +2,8 @@ static const XLatEntry xlat_entries[] =
 {
 	{"‘", "'"},
 	{"’", "'"},
+	{"Þ", "Th"},
+	{"þ", "th"},
 	{"Æ", "A"},
 	{"æ", "a"},
 	{"Ø", "O"},
