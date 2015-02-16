@@ -8,8 +8,8 @@ standard input and writes the result to its standard output.
 Alternatively, it can be used as a Python module:
 
     from anglicize import Anglicize
-    anglicize = Anglicize()
-    print anglicize.anglicize(utf8_bytes)
+
+    print Anglicize.anglicize(utf8_bytes)
 
 See README.md for more details."""
 
@@ -26,9 +26,11 @@ class Anglicize(object):
         self.__capitalization_mode = False
         self.__first_capital_and_spaces = ''
 
-    def anglicize(self, text):
+    @staticmethod
+    def anglicize(text):
         """Process a whole string and return its anglicized version."""
-        return self.process_buf(text) + self.finalize()
+        anglicize = Anglicize()
+        return anglicize.process_buf(text) + anglicize.finalize()
 
     def process_buf(self, buf):
         """Anglicize a buffer. Expect more to come. Keep state between calls."""
