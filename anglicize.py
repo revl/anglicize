@@ -36,10 +36,21 @@ class Anglicize(object):
         """Anglicize a buffer. Expect more to come. Keep state between calls."""
         output = ''
         for byte in buf:
-            output += self.push_byte(byte)
+            output += self.__push_byte(byte)
         return output
 
-    def push_byte(self, byte):
+    def finalize(self):
+        """Process and return the remainder of the internal buffer."""
+        output = ''
+        while self.__buf or self.__finite_state:
+            output += self.__skip_buf_byte()
+        if self.__capitalization_mode:
+            if self.__first_capital_and_spaces:
+                output += self.__first_capital_and_spaces
+            self.__capitalization_mode = False
+        return output
+
+    def __push_byte(self, byte):
         """Input another byte. Return the transliteration when it's ready."""
         # Check if there is no transition from the current state
         # for the given byte.
@@ -50,7 +61,7 @@ class Anglicize(object):
                 # buffer and the new byte also cannot be
                 # converted - return it right away
                 return self.__hold_spaces_after_capital(byte)
-            return self.__skip_buf_byte() + self.push_byte(byte)
+            return self.__skip_buf_byte() + self.__push_byte(byte)
 
         new_state = self.__state[byte]
         if not new_state[1]:
@@ -66,17 +77,6 @@ class Anglicize(object):
             self.__buf += byte
         return ''
 
-    def finalize(self):
-        """Process and return the remainder of the internal buffer."""
-        output = ''
-        while self.__buf or self.__finite_state:
-            output += self.__skip_buf_byte()
-        if self.__capitalization_mode:
-            if self.__first_capital_and_spaces:
-                output += self.__first_capital_and_spaces
-            self.__capitalization_mode = False
-        return output
-
     def __skip_buf_byte(self):
         """Restart character recognition in the internal buffer."""
         self.__state = xlat_tree.xlat_tree
@@ -89,7 +89,7 @@ class Anglicize(object):
             buf = self.__buf[1:]
         self.__buf = ''
         for byte in buf:
-            output += self.push_byte(byte)
+            output += self.__push_byte(byte)
         return output
 
     def __hold_first_capital(self, xlat):
