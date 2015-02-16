@@ -1,8 +1,9 @@
 About
 =====
 
-``anglicize.py`` is a script that performs anglicization of mixed-language
-text.  The script can also be used as a Python module (see below).
+``anglicize.py`` is a script (and a Python module) that performs
+[anglicization](https://en.wikipedia.org/wiki/Anglicisation "Anglicisation")
+of mixed-language text.
 
 Essentially, this program is a simple finite state machine that accepts a
 sequence of UTF-8 characters and converts it to a sequence of the 26 letters
@@ -17,19 +18,21 @@ The script is compatible with Python versions of both 2.X and 3.X series.
 Usage
 =====
 
+This code can be used as a script as well as an importable module.
+
 Usage as a script
 -----------------
 
 When used as a script, ``anglicize.py`` works as a filter: it reads UTF-8
-characters from its standard input, coverts the ones it recognizes to the
+data from its standard input, coverts the characters it recognizes to the
 English alphabet, and prints the result to its standard output.
 
 For example:
 
     $ ./anglicize.py < INPUT_FILE > OUTPUT_FILE
 
-    $ echo 'Cześć' | ./anglicize.py
-    Czeshch
+    $ echo 'Cześć!' | ./anglicize.py
+    Czeshch!
 
 Usage as a module
 -----------------
@@ -47,8 +50,8 @@ The class has two modes of operation:
 
         result = Anglicize.anglicize(utf8_byte_string)
 
-   Note that Unicode characters must be converted to a UTF-8 byte string
-   prior to feeding them to the method using ``str.encode``:
+   Note that Unicode strings first must be converted to UTF-8 byte strings
+   using ``str.encode()`` before they can be passed to the method:
 
         result = Anglicize.anglicize(u'retour de la même idée'.encode('UTF-8'))
 
