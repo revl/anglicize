@@ -2,4 +2,4 @@
 *.pyc
 
 # Build target
-make_xlat_tree
+extra/make_xlat_tree
