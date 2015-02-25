@@ -2,6 +2,10 @@
 # All changes made in this file will be lost.
 
 xlat_tree = {
+    '\xc2': ["", {
+        '\xab': ["\"", None],
+        '\xbb': ["\"", None]
+    }],
     '\xc3': ["", {
         '\x80': ["A", None],
         '\x81': ["A", None],
