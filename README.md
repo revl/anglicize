@@ -24,7 +24,7 @@ Usage as a script
 -----------------
 
 When used as a script, ``anglicize.py`` works as a filter: it reads UTF-8
-data from its standard input, coverts the characters it recognizes to the
+data from its standard input, converts the characters it recognizes to the
 English alphabet, and prints the result to its standard output.
 
 For example:
@@ -55,8 +55,9 @@ The class has two modes of operation:
 
         result = Anglicize.anglicize(u'retour de la même idée'.encode('UTF-8'))
 
-2. Convert a large block of text, buffer by buffer. This mode is meant for
-   processing a stream of text data; it consists of three steps:
+2. Convert a large block of text iteratively, one buffer at a time. This
+   mode is meant for processing a stream of text data; it consists of
+   three steps:
 
    1. Create an object of the Anglicize class. This object will keep the
       current state of the finite state machine and a couple of small
