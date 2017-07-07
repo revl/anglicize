@@ -23,6 +23,11 @@ xlat_tree = {
         '\x8d': ["I", None],
         '\x8e': ["I", None],
         '\x90': ["D", None],
+        '\x91': ["Ny", {
+            '\xc3': ["", {
+                '\xb3': ["Nyo", None]
+            }]
+        }],
         '\x92': ["O", None],
         '\x93': ["U", None],
         '\x94': ["O", None],
@@ -51,6 +56,11 @@ xlat_tree = {
         '\xad': ["i", None],
         '\xae': ["i", None],
         '\xb0': ["d", None],
+        '\xb1': ["ny", {
+            '\xc3': ["", {
+                '\xb3': ["nyo", None]
+            }]
+        }],
         '\xb2': ["o", None],
         '\xb3': ["u", None],
         '\xb4': ["o", None],
