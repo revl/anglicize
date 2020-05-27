@@ -13,8 +13,6 @@ form.  Peculiarities of each particular language are not taken into account
 transliterations for pairs or triads of input characters -- suggestions
 are welcome).
 
-The script is compatible with Python versions of both 2.X and 3.X series.
-
 Usage
 =====
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """Perform anglicization of text in UTF-8 encoding.
 
@@ -9,7 +9,7 @@ Alternatively, it can be used as a Python module:
 
     from anglicize import Anglicize
 
-    print Anglicize.anglicize(utf8_bytes)
+    print(Anglicize.anglicize(utf8_as_bytes))
 
 See README.md for more details."""
 
@@ -22,26 +22,26 @@ class Anglicize(object):
     def __init__(self):
         self.__state = xlat_tree.xlat_tree
         self.__finite_state = None
-        self.__buf = ''
+        self.__buf = bytearray()
         self.__capitalization_mode = False
-        self.__first_capital_and_spaces = ''
+        self.__first_capital_and_spaces = bytearray()
 
     @staticmethod
-    def anglicize(text):
+    def anglicize(text: bytes):
         """Process a whole string and return its anglicized version."""
         anglicize = Anglicize()
         return anglicize.process_buf(text) + anglicize.finalize()
 
-    def process_buf(self, buf):
+    def process_buf(self, buf: bytes):
         """Anglicize a buffer. Expect more to come. Keep state between calls."""
-        output = ''
+        output = bytearray()
         for byte in buf:
             output += self.__push_byte(byte)
         return output
 
     def finalize(self):
         """Process and return the remainder of the internal buffer."""
-        output = ''
+        output = bytearray()
         while self.__buf or self.__finite_state:
             output += self.__skip_buf_byte()
         if self.__capitalization_mode:
@@ -50,7 +50,7 @@ class Anglicize(object):
             self.__capitalization_mode = False
         return output
 
-    def __push_byte(self, byte):
+    def __push_byte(self, byte: int):
         """Input another byte. Return the transliteration when it's ready."""
         # Check if there is no transition from the current state
         # for the given byte.
@@ -67,15 +67,15 @@ class Anglicize(object):
         if not new_state[1]:
             self.__state = xlat_tree.xlat_tree
             self.__finite_state = None
-            self.__buf = ''
+            self.__buf = bytearray()
             return self.__hold_first_capital(new_state[0])
         self.__state = new_state[1]
         if new_state[0]:
             self.__finite_state = new_state
-            self.__buf = ''
+            self.__buf = bytearray()
         else:
-            self.__buf += byte
-        return ''
+            self.__buf.append(byte)
+        return bytearray()
 
     def __skip_buf_byte(self):
         """Restart character recognition in the internal buffer."""
@@ -87,7 +87,7 @@ class Anglicize(object):
         else:
             output = self.__hold_spaces_after_capital(self.__buf[0])
             buf = self.__buf[1:]
-        self.__buf = ''
+        self.__buf = bytearray()
         for byte in buf:
             output += self.__push_byte(byte)
         return output
@@ -98,7 +98,7 @@ class Anglicize(object):
             if self.__first_capital_and_spaces:
                 if xlat.istitle():
                     xlat = self.__first_capital_and_spaces + xlat
-                    self.__first_capital_and_spaces = ''
+                    self.__first_capital_and_spaces = bytearray()
                     return xlat.upper()
                 xlat = self.__first_capital_and_spaces + xlat
             elif xlat.istitle():
@@ -107,21 +107,22 @@ class Anglicize(object):
         elif xlat.istitle():
             self.__capitalization_mode = True
             self.__first_capital_and_spaces = xlat
-            return ''
+            return bytearray()
         return xlat
 
-    def __hold_spaces_after_capital(self, output):
+    def __hold_spaces_after_capital(self, byte):
         """Buffer spaces after the first capital letter."""
         if self.__capitalization_mode:
             if self.__first_capital_and_spaces:
-                if output == ' ':
-                    self.__first_capital_and_spaces += output
-                    return ''
-                output = self.__first_capital_and_spaces + output
-            elif output == ' ':
-                return output
+                if byte == b' ':
+                    self.__first_capital_and_spaces.append(byte)
+                    return bytearray()
+                self.__capitalization_mode = False
+                return self.__first_capital_and_spaces + bytes((byte,))
+            elif byte == b' ':
+                return bytes((byte,))
             self.__capitalization_mode = False
-        return output
+        return bytes((byte,))
 
 def main():
     """Apply anglicization to the standard input stream and print the result."""
@@ -131,12 +132,12 @@ def main():
     anglicize = Anglicize()
 
     while True:
-        line = stdin.readline(1024)
-        if not line:
+        data = stdin.buffer.read(4096)
+        if not data:
             break
-        stdout.write(anglicize.process_buf(line))
+        stdout.buffer.write(anglicize.process_buf(data))
 
-    stdout.write(anglicize.finalize())
+    stdout.buffer.write(anglicize.finalize())
 
 if __name__ == "__main__":
     main()

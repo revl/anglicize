@@ -2,350 +2,350 @@
 # All changes made in this file will be lost.
 
 xlat_tree = {
-    '\xc2': ["", {
-        '\xab': ["\"", None],
-        '\xbb': ["\"", None]
+    0xC2: [b"", {
+        0xAB: [b"\"", None],
+        0xBB: [b"\"", None]
     }],
-    '\xc3': ["", {
-        '\x80': ["A", None],
-        '\x81': ["A", None],
-        '\x82': ["I", None],
-        '\x83': ["A", None],
-        '\x84': ["A", None],
-        '\x85': ["O", None],
-        '\x86': ["A", None],
-        '\x87': ["S", None],
-        '\x88': ["E", None],
-        '\x89': ["E", None],
-        '\x8a': ["E", None],
-        '\x8b': ["Yo", None],
-        '\x8c': ["I", None],
-        '\x8d': ["I", None],
-        '\x8e': ["I", None],
-        '\x90': ["D", None],
-        '\x91': ["Ny", {
-            '\xc3': ["", {
-                '\xb3': ["Nyo", None]
+    0xC3: [b"", {
+        0x80: [b"A", None],
+        0x81: [b"A", None],
+        0x82: [b"I", None],
+        0x83: [b"A", None],
+        0x84: [b"A", None],
+        0x85: [b"O", None],
+        0x86: [b"A", None],
+        0x87: [b"S", None],
+        0x88: [b"E", None],
+        0x89: [b"E", None],
+        0x8A: [b"E", None],
+        0x8B: [b"Yo", None],
+        0x8C: [b"I", None],
+        0x8D: [b"I", None],
+        0x8E: [b"I", None],
+        0x90: [b"D", None],
+        0x91: [b"Ny", {
+            0xC3: [b"", {
+                0xB3: [b"Nyo", None]
             }]
         }],
-        '\x92': ["O", None],
-        '\x93': ["U", None],
-        '\x94': ["O", None],
-        '\x95': ["O", None],
-        '\x96': ["O", None],
-        '\x98': ["O", None],
-        '\x99': ["U", None],
-        '\x9a': ["U", None],
-        '\x9b': ["U", None],
-        '\x9c': ["U", None],
-        '\x9e': ["Th", None],
-        '\x9f': ["ss", None],
-        '\xa0': ["a", None],
-        '\xa1': ["a", None],
-        '\xa2': ["i", None],
-        '\xa3': ["a", None],
-        '\xa4': ["a", None],
-        '\xa5': ["o", None],
-        '\xa6': ["a", None],
-        '\xa7': ["s", None],
-        '\xa8': ["e", None],
-        '\xa9': ["e", None],
-        '\xaa': ["e", None],
-        '\xab': ["yo", None],
-        '\xac': ["i", None],
-        '\xad': ["i", None],
-        '\xae': ["i", None],
-        '\xb0': ["d", None],
-        '\xb1': ["ny", {
-            '\xc3': ["", {
-                '\xb3': ["nyo", None]
+        0x92: [b"O", None],
+        0x93: [b"U", None],
+        0x94: [b"O", None],
+        0x95: [b"O", None],
+        0x96: [b"O", None],
+        0x98: [b"O", None],
+        0x99: [b"U", None],
+        0x9A: [b"U", None],
+        0x9B: [b"U", None],
+        0x9C: [b"U", None],
+        0x9E: [b"Th", None],
+        0x9F: [b"ss", None],
+        0xA0: [b"a", None],
+        0xA1: [b"a", None],
+        0xA2: [b"i", None],
+        0xA3: [b"a", None],
+        0xA4: [b"a", None],
+        0xA5: [b"o", None],
+        0xA6: [b"a", None],
+        0xA7: [b"s", None],
+        0xA8: [b"e", None],
+        0xA9: [b"e", None],
+        0xAA: [b"e", None],
+        0xAB: [b"yo", None],
+        0xAC: [b"i", None],
+        0xAD: [b"i", None],
+        0xAE: [b"i", None],
+        0xB0: [b"d", None],
+        0xB1: [b"ny", {
+            0xC3: [b"", {
+                0xB3: [b"nyo", None]
             }]
         }],
-        '\xb2': ["o", None],
-        '\xb3': ["u", None],
-        '\xb4': ["o", None],
-        '\xb5': ["o", None],
-        '\xb6': ["o", None],
-        '\xb8': ["o", None],
-        '\xb9': ["u", None],
-        '\xba': ["u", None],
-        '\xbb': ["u", None],
-        '\xbc': ["u", None],
-        '\xbe': ["th", None]
+        0xB2: [b"o", None],
+        0xB3: [b"u", None],
+        0xB4: [b"o", None],
+        0xB5: [b"o", None],
+        0xB6: [b"o", None],
+        0xB8: [b"o", None],
+        0xB9: [b"u", None],
+        0xBA: [b"u", None],
+        0xBB: [b"u", None],
+        0xBC: [b"u", None],
+        0xBE: [b"th", None]
     }],
-    '\xc4': ["", {
-        '\x82': ["A", None],
-        '\x83': ["a", None],
-        '\x84': ["O", None],
-        '\x85': ["o", None],
-        '\x86': ["Ch", None],
-        '\x87': ["ch", None],
-        '\x98': ["E", None],
-        '\x99': ["e", None]
+    0xC4: [b"", {
+        0x82: [b"A", None],
+        0x83: [b"a", None],
+        0x84: [b"O", None],
+        0x85: [b"o", None],
+        0x86: [b"Ch", None],
+        0x87: [b"ch", None],
+        0x98: [b"E", None],
+        0x99: [b"e", None]
     }],
-    '\xc5': ["", {
-        '\x81': ["W", None],
-        '\x82': ["w", None],
-        '\x83': ["Ny", None],
-        '\x84': ["ny", None],
-        '\x9a': ["Sh", None],
-        '\x9b': ["sh", None],
-        '\xa0': ["Sh", None],
-        '\xa1': ["sh", None],
-        '\xb9': ["Zh", None],
-        '\xba': ["zh", None],
-        '\xbb': ["Zh", None],
-        '\xbc': ["zh", None],
-        '\xbd': ["S", None],
-        '\xbe': ["s", None]
+    0xC5: [b"", {
+        0x81: [b"W", None],
+        0x82: [b"w", None],
+        0x83: [b"Ny", None],
+        0x84: [b"ny", None],
+        0x9A: [b"Sh", None],
+        0x9B: [b"sh", None],
+        0xA0: [b"Sh", None],
+        0xA1: [b"sh", None],
+        0xB9: [b"Zh", None],
+        0xBA: [b"zh", None],
+        0xBB: [b"Zh", None],
+        0xBC: [b"zh", None],
+        0xBD: [b"S", None],
+        0xBE: [b"s", None]
     }],
-    '\xc8': ["", {
-        '\x98': ["Sh", None],
-        '\x99': ["sh", None],
-        '\x9a': ["Ts", None],
-        '\x9b': ["ts", None]
+    0xC8: [b"", {
+        0x98: [b"Sh", None],
+        0x99: [b"sh", None],
+        0x9A: [b"Ts", None],
+        0x9B: [b"ts", None]
     }],
-    '\xd0': ["", {
-        '\x81': ["Yo", None],
-        '\x84': ["Ye", None],
-        '\x86': ["I", {
-            '\xcc': ["", {
-                '\x88': ["Yi", None]
+    0xD0: [b"", {
+        0x81: [b"Yo", None],
+        0x84: [b"Ye", None],
+        0x86: [b"I", {
+            0xCC: [b"", {
+                0x88: [b"Yi", None]
             }]
         }],
-        '\x87': ["Yi", None],
-        '\x90': ["A", None],
-        '\x91': ["B", None],
-        '\x92': ["V", None],
-        '\x93': ["G", None],
-        '\x94': ["D", None],
-        '\x95': ["E", {
-            '\xcc': ["", {
-                '\x88': ["Yo", None]
+        0x87: [b"Yi", None],
+        0x90: [b"A", None],
+        0x91: [b"B", None],
+        0x92: [b"V", None],
+        0x93: [b"G", None],
+        0x94: [b"D", None],
+        0x95: [b"E", {
+            0xCC: [b"", {
+                0x88: [b"Yo", None]
             }]
         }],
-        '\x96': ["Zh", None],
-        '\x97': ["Z", None],
-        '\x98': ["I", {
-            '\xcc': ["", {
-                '\x86': ["J", None]
+        0x96: [b"Zh", None],
+        0x97: [b"Z", None],
+        0x98: [b"I", {
+            0xCC: [b"", {
+                0x86: [b"J", None]
             }]
         }],
-        '\x99': ["J", None],
-        '\x9a': ["K", None],
-        '\x9b': ["L", None],
-        '\x9c': ["M", None],
-        '\x9d': ["N", None],
-        '\x9e': ["O", None],
-        '\x9f': ["P", None],
-        '\xa0': ["R", None],
-        '\xa1': ["S", None],
-        '\xa2': ["T", None],
-        '\xa3': ["U", None],
-        '\xa4': ["F", None],
-        '\xa5': ["Kh", None],
-        '\xa6': ["Ts", None],
-        '\xa7': ["Ch", None],
-        '\xa8': ["Sh", None],
-        '\xa9': ["Sch", None],
-        '\xaa': ["'", None],
-        '\xab': ["Y", None],
-        '\xac': ["", None],
-        '\xad': ["E", None],
-        '\xae': ["Yu", None],
-        '\xaf': ["Ya", None],
-        '\xb0': ["a", None],
-        '\xb1': ["b", None],
-        '\xb2': ["v", None],
-        '\xb3': ["g", None],
-        '\xb4': ["d", None],
-        '\xb5': ["e", {
-            '\xcc': ["", {
-                '\x88': ["yo", None]
+        0x99: [b"J", None],
+        0x9A: [b"K", None],
+        0x9B: [b"L", None],
+        0x9C: [b"M", None],
+        0x9D: [b"N", None],
+        0x9E: [b"O", None],
+        0x9F: [b"P", None],
+        0xA0: [b"R", None],
+        0xA1: [b"S", None],
+        0xA2: [b"T", None],
+        0xA3: [b"U", None],
+        0xA4: [b"F", None],
+        0xA5: [b"Kh", None],
+        0xA6: [b"Ts", None],
+        0xA7: [b"Ch", None],
+        0xA8: [b"Sh", None],
+        0xA9: [b"Sch", None],
+        0xAA: [b"'", None],
+        0xAB: [b"Y", None],
+        0xAC: [b"", None],
+        0xAD: [b"E", None],
+        0xAE: [b"Yu", None],
+        0xAF: [b"Ya", None],
+        0xB0: [b"a", None],
+        0xB1: [b"b", None],
+        0xB2: [b"v", None],
+        0xB3: [b"g", None],
+        0xB4: [b"d", None],
+        0xB5: [b"e", {
+            0xCC: [b"", {
+                0x88: [b"yo", None]
             }]
         }],
-        '\xb6': ["zh", None],
-        '\xb7': ["z", None],
-        '\xb8': ["i", {
-            '\xcc': ["", {
-                '\x86': ["j", None]
+        0xB6: [b"zh", None],
+        0xB7: [b"z", None],
+        0xB8: [b"i", {
+            0xCC: [b"", {
+                0x86: [b"j", None]
             }]
         }],
-        '\xb9': ["j", None],
-        '\xba': ["k", None],
-        '\xbb': ["l", None],
-        '\xbc': ["m", None],
-        '\xbd': ["n", None],
-        '\xbe': ["o", None],
-        '\xbf': ["p", None]
+        0xB9: [b"j", None],
+        0xBA: [b"k", None],
+        0xBB: [b"l", None],
+        0xBC: [b"m", None],
+        0xBD: [b"n", None],
+        0xBE: [b"o", None],
+        0xBF: [b"p", None]
     }],
-    '\xd1': ["", {
-        '\x80': ["r", None],
-        '\x81': ["s", None],
-        '\x82': ["t", None],
-        '\x83': ["u", None],
-        '\x84': ["f", None],
-        '\x85': ["kh", None],
-        '\x86': ["ts", None],
-        '\x87': ["ch", None],
-        '\x88': ["sh", None],
-        '\x89': ["sch", None],
-        '\x8a': ["'", None],
-        '\x8b': ["y", None],
-        '\x8c': ["", None],
-        '\x8d': ["e", None],
-        '\x8e': ["yu", None],
-        '\x8f': ["ya", None],
-        '\x91': ["yo", None],
-        '\x94': ["ye", None],
-        '\x96': ["i", {
-            '\xcc': ["", {
-                '\x88': ["yi", None]
+    0xD1: [b"", {
+        0x80: [b"r", None],
+        0x81: [b"s", None],
+        0x82: [b"t", None],
+        0x83: [b"u", None],
+        0x84: [b"f", None],
+        0x85: [b"kh", None],
+        0x86: [b"ts", None],
+        0x87: [b"ch", None],
+        0x88: [b"sh", None],
+        0x89: [b"sch", None],
+        0x8A: [b"'", None],
+        0x8B: [b"y", None],
+        0x8C: [b"", None],
+        0x8D: [b"e", None],
+        0x8E: [b"yu", None],
+        0x8F: [b"ya", None],
+        0x91: [b"yo", None],
+        0x94: [b"ye", None],
+        0x96: [b"i", {
+            0xCC: [b"", {
+                0x88: [b"yi", None]
             }]
         }],
-        '\x97': ["yi", None]
+        0x97: [b"yi", None]
     }],
-    '\xd2': ["", {
-        '\x90': ["G", None],
-        '\x91': ["g", None]
+    0xD2: [b"", {
+        0x90: [b"G", None],
+        0x91: [b"g", None]
     }],
-    '\xe1': ["", {
-        '\xba': ["", {
-            '\x9e': ["Ss", None]
+    0xE1: [b"", {
+        0xBA: [b"", {
+            0x9E: [b"Ss", None]
         }]
     }],
-    '\xe2': ["", {
-        '\x80': ["", {
-            '\x98': ["'", None],
-            '\x99': ["'", None],
-            '\x9c': ["\"", None],
-            '\x9d': ["\"", None]
+    0xE2: [b"", {
+        0x80: [b"", {
+            0x98: [b"'", None],
+            0x99: [b"'", None],
+            0x9C: [b"\"", None],
+            0x9D: [b"\"", None]
         }]
     }],
-    '\x41': ["", {
-        '\xcc': ["", {
-            '\x80': ["A", None],
-            '\x81': ["A", None],
-            '\x82': ["I", None],
-            '\x83': ["A", None],
-            '\x86': ["A", None],
-            '\x88': ["A", None],
-            '\x8a': ["O", None]
+    0x41: [b"", {
+        0xCC: [b"", {
+            0x80: [b"A", None],
+            0x81: [b"A", None],
+            0x82: [b"I", None],
+            0x83: [b"A", None],
+            0x86: [b"A", None],
+            0x88: [b"A", None],
+            0x8A: [b"O", None]
         }]
     }],
-    '\x43': ["", {
-        '\xcc': ["", {
-            '\xa7': ["S", None]
+    0x43: [b"", {
+        0xCC: [b"", {
+            0xA7: [b"S", None]
         }]
     }],
-    '\x45': ["", {
-        '\xcc': ["", {
-            '\x80': ["E", None],
-            '\x81': ["E", None],
-            '\x82': ["E", None],
-            '\x88': ["E", None]
+    0x45: [b"", {
+        0xCC: [b"", {
+            0x80: [b"E", None],
+            0x81: [b"E", None],
+            0x82: [b"E", None],
+            0x88: [b"E", None]
         }]
     }],
-    '\x49': ["", {
-        '\xcc': ["", {
-            '\x80': ["I", None],
-            '\x81': ["I", None],
-            '\x82': ["I", None],
-            '\x88': ["Yi", None]
+    0x49: [b"", {
+        0xCC: [b"", {
+            0x80: [b"I", None],
+            0x81: [b"I", None],
+            0x82: [b"I", None],
+            0x88: [b"Yi", None]
         }]
     }],
-    '\x4e': ["", {
-        '\xcc': ["", {
-            '\x83': ["N", None]
+    0x4E: [b"", {
+        0xCC: [b"", {
+            0x83: [b"N", None]
         }]
     }],
-    '\x4f': ["", {
-        '\xcc': ["", {
-            '\x80': ["O", None],
-            '\x81': ["O", None],
-            '\x82': ["O", None],
-            '\x88': ["O", None]
+    0x4F: [b"", {
+        0xCC: [b"", {
+            0x80: [b"O", None],
+            0x81: [b"O", None],
+            0x82: [b"O", None],
+            0x88: [b"O", None]
         }]
     }],
-    '\x53': ["", {
-        '\xcc': ["", {
-            '\xa7': ["Sh", None]
+    0x53: [b"", {
+        0xCC: [b"", {
+            0xA7: [b"Sh", None]
         }]
     }],
-    '\x54': ["", {
-        '\xcc': ["", {
-            '\xa7': ["Ts", None]
+    0x54: [b"", {
+        0xCC: [b"", {
+            0xA7: [b"Ts", None]
         }]
     }],
-    '\x55': ["", {
-        '\xcc': ["", {
-            '\x80': ["U", None],
-            '\x81': ["U", None],
-            '\x82': ["U", None],
-            '\x88': ["U", None]
+    0x55: [b"", {
+        0xCC: [b"", {
+            0x80: [b"U", None],
+            0x81: [b"U", None],
+            0x82: [b"U", None],
+            0x88: [b"U", None]
         }]
     }],
-    '\x61': ["", {
-        '\xcc': ["", {
-            '\x80': ["a", None],
-            '\x81': ["a", None],
-            '\x82': ["i", None],
-            '\x83': ["a", None],
-            '\x86': ["a", None],
-            '\x88': ["a", None],
-            '\x8a': ["o", None]
+    0x61: [b"", {
+        0xCC: [b"", {
+            0x80: [b"a", None],
+            0x81: [b"a", None],
+            0x82: [b"i", None],
+            0x83: [b"a", None],
+            0x86: [b"a", None],
+            0x88: [b"a", None],
+            0x8A: [b"o", None]
         }]
     }],
-    '\x63': ["", {
-        '\xcc': ["", {
-            '\xa7': ["s", None]
+    0x63: [b"", {
+        0xCC: [b"", {
+            0xA7: [b"s", None]
         }]
     }],
-    '\x65': ["", {
-        '\xcc': ["", {
-            '\x80': ["e", None],
-            '\x81': ["e", None],
-            '\x82': ["e", None],
-            '\x88': ["e", None]
+    0x65: [b"", {
+        0xCC: [b"", {
+            0x80: [b"e", None],
+            0x81: [b"e", None],
+            0x82: [b"e", None],
+            0x88: [b"e", None]
         }]
     }],
-    '\x69': ["", {
-        '\xcc': ["", {
-            '\x80': ["i", None],
-            '\x81': ["i", None],
-            '\x82': ["i", None],
-            '\x88': ["yi", None]
+    0x69: [b"", {
+        0xCC: [b"", {
+            0x80: [b"i", None],
+            0x81: [b"i", None],
+            0x82: [b"i", None],
+            0x88: [b"yi", None]
         }]
     }],
-    '\x6e': ["", {
-        '\xcc': ["", {
-            '\x83': ["n", None]
+    0x6E: [b"", {
+        0xCC: [b"", {
+            0x83: [b"n", None]
         }]
     }],
-    '\x6f': ["", {
-        '\xcc': ["", {
-            '\x80': ["o", None],
-            '\x81': ["o", None],
-            '\x82': ["o", None],
-            '\x88': ["o", None]
+    0x6F: [b"", {
+        0xCC: [b"", {
+            0x80: [b"o", None],
+            0x81: [b"o", None],
+            0x82: [b"o", None],
+            0x88: [b"o", None]
         }]
     }],
-    '\x73': ["", {
-        '\xcc': ["", {
-            '\xa7': ["sh", None]
+    0x73: [b"", {
+        0xCC: [b"", {
+            0xA7: [b"sh", None]
         }]
     }],
-    '\x74': ["", {
-        '\xcc': ["", {
-            '\xa7': ["ts", None]
+    0x74: [b"", {
+        0xCC: [b"", {
+            0xA7: [b"ts", None]
         }]
     }],
-    '\x75': ["", {
-        '\xcc': ["", {
-            '\x80': ["u", None],
-            '\x81': ["u", None],
-            '\x82': ["u", None],
-            '\x88': ["u", None]
+    0x75: [b"", {
+        0xCC: [b"", {
+            0x80: [b"u", None],
+            0x81: [b"u", None],
+            0x82: [b"u", None],
+            0x88: [b"u", None]
         }]
     }]
 }

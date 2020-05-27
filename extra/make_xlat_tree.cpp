@@ -1,13 +1,6 @@
 /*
  * This program generates the xlat_tree.py Python module
  * for use by anglicize.py.
- *
- * The are no command line arguments -- the program
- * silently creates or overwrites xlat_tree.py in
- * the current working directory.
- *
- * Please send any improvements, suggestions, and
- * bugfixes to him@revl.org.
  */
 
 #include <stdio.h>
@@ -110,7 +103,7 @@ void XLatTreeGenerator::DumpTreeNode(
 	for (;;)
 	{
 		PrintIndent(indent + 1, output_file);
-		fprintf(output_file, "'\\x%02x': [\"%s\", ",
+		fprintf(output_file, "0x%02X: [b\"%s\", ",
 				(int) (unsigned char) it->first,
 				it->second->encoded ? it->second->encoded : "");
 		if (it->second->children.empty())
