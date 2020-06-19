@@ -1,5 +1,4 @@
-# Compiled Python modules
-*.pyc
-
-# Build target
-extra/make_xlat_tree
+.*
+__pycache__
+*.egg-info
+/htmlcov

@@ -32,7 +32,7 @@ class Anglicize(object):
         anglicize = Anglicize()
         return anglicize.process_buf(text) + anglicize.finalize()
 
-    def process_buf(self, buf: bytes):
+    def process_buf(self, buf: bytes) -> bytearray:
         """Anglicize a buffer. Expect more to come. Keep state between calls."""
         output = bytearray()
         for byte in buf:
@@ -50,7 +50,7 @@ class Anglicize(object):
             self.__capitalization_mode = False
         return output
 
-    def __push_byte(self, byte: int):
+    def __push_byte(self, byte: int) -> bytearray:
         """Input another byte. Return the transliteration when it's ready."""
         # Check if there is no transition from the current state
         # for the given byte.

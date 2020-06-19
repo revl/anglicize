@@ -1,6 +1,6 @@
 .PHONY: clean
 
-../xlat_tree.py: make_xlat_tree
+../src/xlat_tree.py: make_xlat_tree
 	./make_xlat_tree $@
 
 make_xlat_tree: make_xlat_tree.cpp xlat_entries.h
