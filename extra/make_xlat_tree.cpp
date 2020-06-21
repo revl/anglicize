@@ -24,6 +24,9 @@ struct XLatEntry
 
 #define NUMBER_OF_ENTRIES (sizeof(xlat_entries) / sizeof(*xlat_entries))
 
+#define XLAT_TREE_BEGIN "\n    XLAT_TREE = "
+#define XLAT_TREE_END "\n    }"
+
 struct XLatTreeNode;
 
 // NodeMap matches the xlat_tree structure in the resulting
@@ -46,11 +49,12 @@ class XLatTreeGenerator
 {
 public:
 	void AddXLatEntry(const XLatEntry* xlat_entry);
-	void PrintXLatTree(std::ostream& os);
+	std::string GenerateXLatTree() const;
 
 private:
-	void PrintIndent(int indent, std::ostream& os);
-	void PrintTreeNode(std::ostream& os, NodeMap* tree_node, int indent);
+	static void PrintIndent(int indent, std::ostream& os);
+	static void PrintTreeNode(std::ostream& os,
+		const NodeMap* tree_node, int indent);
 
 	NodeMap xlat_tree_root;
 };
@@ -84,11 +88,14 @@ void XLatTreeGenerator::AddXLatEntry(const XLatEntry* xlat_entry)
 		insertion.first->second->encoded = xlat_entry->to;
 }
 
-void XLatTreeGenerator::PrintXLatTree(std::ostream& os)
+std::string XLatTreeGenerator::GenerateXLatTree() const
 {
-	os << "XLAT_TREE = ";
-	PrintTreeNode(os, &xlat_tree_root, 0);
-	os << '\n';
+	std::stringstream ss;
+
+	ss << XLAT_TREE_BEGIN;
+	PrintTreeNode(ss, &xlat_tree_root, 1);
+
+	return ss.str();
 }
 
 void XLatTreeGenerator::PrintIndent(int indent, std::ostream& os)
@@ -98,7 +105,7 @@ void XLatTreeGenerator::PrintIndent(int indent, std::ostream& os)
 }
 
 void XLatTreeGenerator::PrintTreeNode(
-		std::ostream& os, NodeMap* tree_node, int indent)
+	std::ostream& os, const NodeMap* tree_node, int indent)
 {
 	os << "{\n";
 	NodeMap::const_iterator it = tree_node->begin();
@@ -147,17 +154,26 @@ int main(int argc, const char* argv[])
 
 	std::string python_code = ss.str();
 
-	const size_t generated_pos = python_code.find("\nXLAT_TREE");
+	const size_t xlat_tree_pos = python_code.find(XLAT_TREE_BEGIN);
 
-	if (generated_pos == std::string::npos)
+	if (xlat_tree_pos == std::string::npos)
 	{
 		std::cerr << output_file_name <<
 			": couldn't locate generated content" << std::endl;
 		return 1;
 	}
 
-	// Strip generated content.
-	python_code.erase(generated_pos + 1);
+	size_t xlat_tree_end_pos =
+		python_code.find(XLAT_TREE_END, xlat_tree_pos);
+
+	if (xlat_tree_end_pos == std::string::npos)
+	{
+		std::cerr << output_file_name << ": no closing bracket "
+			"for generated content" << std::endl;
+		return 1;
+	}
+
+	xlat_tree_end_pos += sizeof(XLAT_TREE_END) - 1;
 
 	XLatTreeGenerator generator;
 
@@ -165,10 +181,12 @@ int main(int argc, const char* argv[])
 	for (int i = 0; i < NUMBER_OF_ENTRIES; ++i)
 		generator.AddXLatEntry(xlat_entries + i);
 
+	// Replace generated content.
+	python_code.replace(xlat_tree_pos, xlat_tree_end_pos - xlat_tree_pos,
+		generator.GenerateXLatTree());
+
 	std::ofstream os(output_file_name);
 	os.write(python_code.data(), python_code.length());
-
-	generator.PrintXLatTree(os);
 
 	return 0;
 }
