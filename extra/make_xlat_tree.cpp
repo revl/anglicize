@@ -24,7 +24,7 @@ struct XLatEntry
 
 #define NUMBER_OF_ENTRIES (sizeof(xlat_entries) / sizeof(*xlat_entries))
 
-#define XLAT_TREE_BEGIN "\n    XLAT_TREE = "
+#define XLAT_TREE_BEGIN "\n    XLAT_TREE: Dict[int, Any] = "
 #define XLAT_TREE_END "\n    }"
 
 struct XLatTreeNode;

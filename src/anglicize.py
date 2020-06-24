@@ -13,20 +13,22 @@ Alternatively, it can be used as a Python module:
 
 See README.md for more details."""
 
+from typing import Dict, Optional, Any
+
 
 class Anglicize(object):
     """Convert a byte sequence of UTF-8 characters to their English
     transcriptions."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.__state = Anglicize.XLAT_TREE
-        self.__finite_state = None
+        self.__finite_state: Optional[Dict[int, Any]] = None
         self.__buf = bytearray()
         self.__capitalization_mode = False
         self.__first_capital_and_spaces = bytearray()
 
     @staticmethod
-    def anglicize(text: bytes):
+    def anglicize(text: bytes) -> bytearray:
         """Process a whole string and return its anglicized version."""
         anglicize = Anglicize()
         return anglicize.process_buf(text) + anglicize.finalize()
@@ -38,7 +40,7 @@ class Anglicize(object):
             output += self.__push_byte(byte)
         return output
 
-    def finalize(self):
+    def finalize(self) -> bytearray:
         """Process and return the remainder of the internal buffer."""
         output = bytearray()
         while self.__buf or self.__finite_state:
@@ -76,7 +78,7 @@ class Anglicize(object):
             self.__buf.append(byte)
         return bytearray()
 
-    def __skip_buf_byte(self):
+    def __skip_buf_byte(self) -> bytearray:
         """Restart character recognition in the internal buffer."""
         self.__state = Anglicize.XLAT_TREE
         if self.__finite_state:
@@ -91,25 +93,25 @@ class Anglicize(object):
             output += self.__push_byte(byte)
         return output
 
-    def __hold_first_capital(self, xlat):
+    def __hold_first_capital(self, xlat: bytes) -> bytearray:
         """Buffer the first capital letter after a series of lower case ones."""
         if self.__capitalization_mode:
             if self.__first_capital_and_spaces:
                 if xlat.istitle():
                     xlat = self.__first_capital_and_spaces + xlat
                     self.__first_capital_and_spaces = bytearray()
-                    return xlat.upper()
+                    return bytearray(xlat.upper())
                 xlat = self.__first_capital_and_spaces + xlat
             elif xlat.istitle():
-                return xlat.upper()
+                return bytearray(xlat.upper())
             self.__capitalization_mode = False
         elif xlat.istitle():
             self.__capitalization_mode = True
-            self.__first_capital_and_spaces = xlat
+            self.__first_capital_and_spaces = bytearray(xlat)
             return bytearray()
-        return xlat
+        return bytearray(xlat)
 
-    def __hold_spaces_after_capital(self, byte):
+    def __hold_spaces_after_capital(self, byte: int) -> bytearray:
         """Buffer spaces after the first capital letter."""
         if self.__capitalization_mode:
             if self.__first_capital_and_spaces:
@@ -119,12 +121,12 @@ class Anglicize(object):
                 self.__capitalization_mode = False
                 return self.__first_capital_and_spaces + bytes((byte,))
             elif byte == b' ':
-                return bytes((byte,))
+                return bytearray((byte,))
             self.__capitalization_mode = False
-        return bytes((byte,))
+        return bytearray((byte,))
 
     # This variable is updated by make_xlat_tree.
-    XLAT_TREE = {
+    XLAT_TREE: Dict[int, Any] = {
         0xC2: [b"", {
             0xAB: [b"\"", None],
             0xBB: [b"\"", None]
@@ -474,7 +476,7 @@ class Anglicize(object):
     }
 
 
-def main():
+def main() -> None:
     """Apply anglicization to the standard input stream and print the result."""
 
     from sys import stdin, stdout
