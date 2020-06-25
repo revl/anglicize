@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <fstream>
 #include <sstream>
+#include <cassert>
 
 #include <map>
 
@@ -21,8 +22,6 @@ struct XLatEntry
 
 // Load input data.
 #include "xlat_entries.h"
-
-#define NUMBER_OF_ENTRIES (sizeof(xlat_entries) / sizeof(*xlat_entries))
 
 #define XLAT_TREE_BEGIN "\n    XLAT_TREE: Dict[int, Any] = "
 #define XLAT_TREE_END "\n    }"
@@ -48,7 +47,7 @@ struct XLatTreeNode
 class XLatTreeGenerator
 {
 public:
-	void AddXLatEntry(const XLatEntry* xlat_entry);
+	void AddXLatEntry(const XLatEntry& xlat_entry);
 	std::string GenerateXLatTree() const;
 
 private:
@@ -60,9 +59,9 @@ private:
 };
 
 // This is the main procedure.
-void XLatTreeGenerator::AddXLatEntry(const XLatEntry* xlat_entry)
+void XLatTreeGenerator::AddXLatEntry(const XLatEntry& xlat_entry)
 {
-	const char* ch = xlat_entry->from;
+	const char* ch = xlat_entry.from;
 	NodeMap* tree_node = &xlat_tree_root;
 
 	// Create nodes in the output tree for all but one
@@ -82,10 +81,10 @@ void XLatTreeGenerator::AddXLatEntry(const XLatEntry* xlat_entry)
 	// transliteration of the UTF-character to it.
 	std::pair<NodeMap::iterator, bool> insertion =
 			tree_node->insert(NodeMap::value_type(*ch, NULL));
-	if (insertion.second)
-		insertion.first->second = new XLatTreeNode(xlat_entry->to);
-	else
-		insertion.first->second->encoded = xlat_entry->to;
+
+	assert(insertion.second && "Duplicate entries are not allowed");
+
+	insertion.first->second = new XLatTreeNode(xlat_entry.to);
 }
 
 std::string XLatTreeGenerator::GenerateXLatTree() const
@@ -178,8 +177,8 @@ int main(int argc, const char* argv[])
 	XLatTreeGenerator generator;
 
 	// For each input UTF-8 character.
-	for (int i = 0; i < NUMBER_OF_ENTRIES; ++i)
-		generator.AddXLatEntry(xlat_entries + i);
+	for (const auto xlat_entry : xlat_entries)
+		generator.AddXLatEntry(xlat_entry);
 
 	// Replace generated content.
 	python_code.replace(xlat_tree_pos, xlat_tree_end_pos - xlat_tree_pos,

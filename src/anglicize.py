@@ -154,7 +154,7 @@ class Anglicize(object):
                 }]
             }],
             0x92: [b"O", None],
-            0x93: [b"U", None],
+            0x93: [b"O", None],
             0x94: [b"O", None],
             0x95: [b"O", None],
             0x96: [b"O", None],
@@ -187,7 +187,7 @@ class Anglicize(object):
                 }]
             }],
             0xB2: [b"o", None],
-            0xB3: [b"u", None],
+            0xB3: [b"o", None],
             0xB4: [b"o", None],
             0xB5: [b"o", None],
             0xB6: [b"o", None],
