@@ -26,6 +26,7 @@ class Anglicize(object):
         self.__buf = bytearray()
         self.__capitalization_mode = False
         self.__first_capital_and_spaces = bytearray()
+        self.__output = bytearray()
 
     @staticmethod
     def anglicize(text: bytes) -> bytearray:
@@ -34,24 +35,24 @@ class Anglicize(object):
         return anglicize.process_buf(text) + anglicize.finalize()
 
     def process_buf(self, buf: bytes) -> bytearray:
-        """Anglicize a buffer. Expect more to come. Keep state between calls."""
-        output = bytearray()
+        """Anglicize a buffer. Expect more to come."""
+        self.__output = bytearray()
         for byte in buf:
-            output += self.__push_byte(byte)
-        return output
+            self.__push_byte(byte)
+        return self.__output
 
     def finalize(self) -> bytearray:
         """Process and return the remainder of the internal buffer."""
-        output = bytearray()
+        self.__output = bytearray()
         while self.__buf or self.__finite_state:
-            output += self.__skip_buf_byte()
+            self.__skip_buf_byte()
         if self.__capitalization_mode:
             if self.__first_capital_and_spaces:
-                output += self.__first_capital_and_spaces
+                self.__output += self.__first_capital_and_spaces
             self.__capitalization_mode = False
-        return output
+        return self.__output
 
-    def __push_byte(self, byte: int) -> bytearray:
+    def __push_byte(self, byte: int) -> None:
         """Input another byte. Return the transliteration when it's ready."""
         # Check if there is no transition from the current state
         # for the given byte.
@@ -60,70 +61,73 @@ class Anglicize(object):
                 # We're at the start state, which means that
                 # no bytes have been accumulated in the
                 # buffer and the new byte also cannot be
-                # converted - return it right away
-                return self.__hold_spaces_after_capital(byte)
-            return self.__skip_buf_byte() + self.__push_byte(byte)
-
-        new_state = self.__state[byte]
-        if not new_state[1]:
-            self.__state = Anglicize.XLAT_TREE
-            self.__finite_state = None
-            self.__buf = bytearray()
-            return self.__hold_first_capital(new_state[0])
-        self.__state = new_state[1]
-        if new_state[0]:
-            self.__finite_state = new_state
-            self.__buf = bytearray()
+                # converted.
+                self.__hold_spaces_after_capital(byte)
+            else:
+                self.__skip_buf_byte()
+                self.__push_byte(byte)
         else:
-            self.__buf.append(byte)
-        return bytearray()
+            new_state = self.__state[byte]
+            if not new_state[1]:
+                self.__state = Anglicize.XLAT_TREE
+                self.__finite_state = None
+                self.__buf = bytearray()
+                self.__hold_first_capital(new_state[0])
+            else:
+                self.__state = new_state[1]
+                if new_state[0]:
+                    self.__finite_state = new_state
+                    self.__buf = bytearray()
+                else:
+                    self.__buf.append(byte)
 
-    def __skip_buf_byte(self) -> bytearray:
+    def __skip_buf_byte(self) -> None:
         """Restart character recognition in the internal buffer."""
         self.__state = Anglicize.XLAT_TREE
         if self.__finite_state:
-            output = self.__hold_first_capital(self.__finite_state[0])
+            self.__hold_first_capital(self.__finite_state[0])
             self.__finite_state = None
             buf = self.__buf
         else:
-            output = self.__hold_spaces_after_capital(self.__buf[0])
+            self.__hold_spaces_after_capital(self.__buf[0])
             buf = self.__buf[1:]
         self.__buf = bytearray()
         for byte in buf:
-            output += self.__push_byte(byte)
-        return output
+            self.__push_byte(byte)
 
-    def __hold_first_capital(self, xlat: bytes) -> bytearray:
-        """Buffer the first capital letter after a series of lower case ones."""
+    def __hold_first_capital(self, xlat: bytes) -> None:
+        """Check for capitalization mode."""
         if self.__capitalization_mode:
             if self.__first_capital_and_spaces:
                 if xlat.istitle():
                     xlat = self.__first_capital_and_spaces + xlat
                     self.__first_capital_and_spaces = bytearray()
-                    return bytearray(xlat.upper())
+                    self.__output += xlat.upper()
+                    return
                 xlat = self.__first_capital_and_spaces + xlat
             elif xlat.istitle():
-                return bytearray(xlat.upper())
+                self.__output += xlat.upper()
+                return
             self.__capitalization_mode = False
         elif xlat.istitle():
             self.__capitalization_mode = True
             self.__first_capital_and_spaces = bytearray(xlat)
-            return bytearray()
-        return bytearray(xlat)
+            return
+        self.__output += xlat
 
-    def __hold_spaces_after_capital(self, byte: int) -> bytearray:
+    def __hold_spaces_after_capital(self, byte: int) -> None:
         """Buffer spaces after the first capital letter."""
         if self.__capitalization_mode:
             if self.__first_capital_and_spaces:
-                if byte == b' ':
+                if byte == 32:
                     self.__first_capital_and_spaces.append(byte)
-                    return bytearray()
+                    return
+                else:
+                    self.__capitalization_mode = False
+                    self.__output += self.__first_capital_and_spaces
+            elif byte != 32:
                 self.__capitalization_mode = False
-                return self.__first_capital_and_spaces + bytes((byte,))
-            elif byte == b' ':
-                return bytearray((byte,))
-            self.__capitalization_mode = False
-        return bytearray((byte,))
+        self.__output.append(byte)
 
     # This variable is updated by make_xlat_tree.
     XLAT_TREE: Dict[int, Any] = {
@@ -477,7 +481,7 @@ class Anglicize(object):
 
 
 def main() -> None:
-    """Apply anglicization to the standard input stream and print the result."""
+    """Apply anglicization to stdin and print the result to stdout."""
 
     from sys import stdin, stdout
 
