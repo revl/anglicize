@@ -311,57 +311,199 @@ class Anglicize(object):
             }]
         }],
         0xCE: [b"", {
-            0x91: [b"A", None],
+            0x91: [b"A", {
+                0xCE: [b"", {
+                    0x99: [b"E", None],
+                    0xA5: [b"AF", None],
+                    0xB9: [b"E", None]
+                }],
+                0xCF: [b"", {
+                    0x85: [b"Af", None]
+                }]
+            }],
             0x92: [b"V", None],
-            0x93: [b"G", None],
+            0x93: [b"G", {
+                0xCE: [b"", {
+                    0x93: [b"NG", None],
+                    0x9A: [b"G", None],
+                    0x9E: [b"NX", None],
+                    0xA7: [b"NKH", None],
+                    0xB3: [b"Ng", None],
+                    0xBA: [b"G", None],
+                    0xBE: [b"Nx", None]
+                }],
+                0xCF: [b"", {
+                    0x87: [b"Nkh", None]
+                }]
+            }],
             0x94: [b"D", None],
-            0x95: [b"E", None],
+            0x95: [b"E", {
+                0xCE: [b"", {
+                    0x99: [b"I", None],
+                    0xA5: [b"EF", None],
+                    0xB9: [b"I", None]
+                }],
+                0xCF: [b"", {
+                    0x85: [b"Ef", None]
+                }]
+            }],
             0x96: [b"Zd", None],
-            0x97: [b"I", None],
+            0x97: [b"I", {
+                0xCE: [b"", {
+                    0x99: [b"I", None],
+                    0xA5: [b"IF", None],
+                    0xB9: [b"I", None]
+                }],
+                0xCF: [b"", {
+                    0x85: [b"If", None]
+                }]
+            }],
             0x98: [b"Th", None],
             0x99: [b"I", None],
             0x9A: [b"K", None],
             0x9B: [b"L", None],
-            0x9C: [b"M", None],
-            0x9D: [b"N", None],
+            0x9C: [b"M", {
+                0xCE: [b"", {
+                    0xA0: [b"MB", None]
+                }],
+                0xCF: [b"", {
+                    0x80: [b"Mb", None]
+                }]
+            }],
+            0x9D: [b"N", {
+                0xCE: [b"", {
+                    0xA4: [b"ND", None]
+                }],
+                0xCF: [b"", {
+                    0x84: [b"Nd", None]
+                }]
+            }],
             0x9E: [b"X", None],
-            0x9F: [b"O", None],
+            0x9F: [b"O", {
+                0xCE: [b"", {
+                    0x99: [b"I", None],
+                    0xA5: [b"U", None],
+                    0xB9: [b"I", None]
+                }],
+                0xCF: [b"", {
+                    0x85: [b"U", None]
+                }]
+            }],
             0xA0: [b"P", None],
             0xA1: [b"R", None],
             0xA3: [b"S", None],
-            0xA4: [b"T", None],
-            0xA5: [b"U", None],
+            0xA4: [b"T", {
+                0xCE: [b"", {
+                    0x96: [b"TZ", None],
+                    0xB6: [b"Tz", None]
+                }]
+            }],
+            0xA5: [b"U", {
+                0xCE: [b"", {
+                    0x99: [b"I", None],
+                    0xB9: [b"I", None]
+                }]
+            }],
             0xA6: [b"F", None],
             0xA7: [b"Kh", None],
             0xA8: [b"Ps", None],
-            0xA9: [b"O", None],
-            0xB1: [b"a", None],
+            0xA9: [b"O", {
+                0xCE: [b"", {
+                    0x99: [b"O", None],
+                    0xA5: [b"OI", None],
+                    0xB9: [b"O", None]
+                }],
+                0xCF: [b"", {
+                    0x85: [b"Oi", None]
+                }]
+            }],
+            0xB1: [b"a", {
+                0xCE: [b"", {
+                    0xB9: [b"e", None]
+                }],
+                0xCF: [b"", {
+                    0x85: [b"af", None]
+                }]
+            }],
             0xB2: [b"v", None],
-            0xB3: [b"g", None],
+            0xB3: [b"g", {
+                0xCE: [b"", {
+                    0xB3: [b"ng", None],
+                    0xBA: [b"g", None],
+                    0xBE: [b"nx", None]
+                }],
+                0xCF: [b"", {
+                    0x87: [b"nkh", None]
+                }]
+            }],
             0xB4: [b"d", None],
-            0xB5: [b"e", None],
+            0xB5: [b"e", {
+                0xCE: [b"", {
+                    0xB9: [b"i", None]
+                }],
+                0xCF: [b"", {
+                    0x85: [b"ef", None]
+                }]
+            }],
             0xB6: [b"zd", None],
-            0xB7: [b"i", None],
+            0xB7: [b"i", {
+                0xCE: [b"", {
+                    0xB9: [b"i", None]
+                }],
+                0xCF: [b"", {
+                    0x85: [b"if", None]
+                }]
+            }],
             0xB8: [b"th", None],
             0xB9: [b"i", None],
             0xBA: [b"k", None],
             0xBB: [b"l", None],
-            0xBC: [b"m", None],
-            0xBD: [b"n", None],
+            0xBC: [b"m", {
+                0xCF: [b"", {
+                    0x80: [b"mb", None]
+                }]
+            }],
+            0xBD: [b"n", {
+                0xCF: [b"", {
+                    0x84: [b"nd", None]
+                }]
+            }],
             0xBE: [b"x", None],
-            0xBF: [b"o", None]
+            0xBF: [b"o", {
+                0xCE: [b"", {
+                    0xB9: [b"i", None]
+                }],
+                0xCF: [b"", {
+                    0x85: [b"u", None]
+                }]
+            }]
         }],
         0xCF: [b"", {
             0x80: [b"p", None],
             0x81: [b"r", None],
             0x82: [b"s", None],
             0x83: [b"s", None],
-            0x84: [b"t", None],
-            0x85: [b"u", None],
+            0x84: [b"t", {
+                0xCE: [b"", {
+                    0xB6: [b"tz", None]
+                }]
+            }],
+            0x85: [b"u", {
+                0xCE: [b"", {
+                    0xB9: [b"i", None]
+                }]
+            }],
             0x86: [b"f", None],
             0x87: [b"kh", None],
             0x88: [b"ps", None],
-            0x89: [b"o", None],
+            0x89: [b"o", {
+                0xCE: [b"", {
+                    0xB9: [b"o", None]
+                }],
+                0xCF: [b"", {
+                    0x85: [b"oi", None]
+                }]
+            }],
             0x95: [b"f", None]
         }],
         0xD0: [b"", {
@@ -506,24 +648,30 @@ class Anglicize(object):
                 0xBA: [b"u", None]
             }],
             0xBE: [b"", {
+                0xB3: [b"a", None],
                 0xBA: [b"A", None],
                 0xBB: [b"A", None],
+                0xBC: [b"A", None],
                 0xBF: [b"'", None]
             }],
             0xBF: [b"", {
+                0x83: [b"i", None],
                 0x86: [b"i", None],
                 0x88: [b"E", None],
                 0x89: [b"E", None],
                 0x8A: [b"I", None],
                 0x8B: [b"I", None],
+                0x8C: [b"I", None],
                 0x96: [b"i", None],
                 0x9A: [b"I", None],
                 0x9B: [b"I", None],
                 0xA6: [b"u", None],
                 0xAA: [b"U", None],
+                0xB3: [b"o", None],
                 0xB6: [b"o", None],
                 0xB8: [b"O", None],
                 0xB9: [b"O", None],
+                0xBC: [b"O", None],
                 0xBE: [b"'", None]
             }]
         }],
