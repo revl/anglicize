@@ -312,7 +312,7 @@ class Anglicize(object):
         }],
         0xCE: [b"", {
             0x91: [b"A", None],
-            0x92: [b"B", None],
+            0x92: [b"V", None],
             0x93: [b"G", None],
             0x94: [b"D", None],
             0x95: [b"E", None],
@@ -332,11 +332,11 @@ class Anglicize(object):
             0xA4: [b"T", None],
             0xA5: [b"U", None],
             0xA6: [b"F", None],
-            0xA7: [b"K", None],
+            0xA7: [b"Kh", None],
             0xA8: [b"Ps", None],
             0xA9: [b"O", None],
             0xB1: [b"a", None],
-            0xB2: [b"b", None],
+            0xB2: [b"v", None],
             0xB3: [b"g", None],
             0xB4: [b"d", None],
             0xB5: [b"e", None],
@@ -359,7 +359,7 @@ class Anglicize(object):
             0x84: [b"t", None],
             0x85: [b"u", None],
             0x86: [b"f", None],
-            0x87: [b"k", None],
+            0x87: [b"kh", None],
             0x88: [b"ps", None],
             0x89: [b"o", None],
             0x95: [b"f", None]
@@ -481,6 +481,50 @@ class Anglicize(object):
             }],
             0xBA: [b"", {
                 0x9E: [b"Ss", None]
+            }],
+            0xBC: [b"", {
+                0x80: [b"a", None],
+                0x88: [b"A", None],
+                0xB1: [b"i", None],
+                0xB9: [b"I", None]
+            }],
+            0xBD: [b"", {
+                0x84: [b"o", None],
+                0x8C: [b"O", None],
+                0xA6: [b"o", None],
+                0xAE: [b"O", None],
+                0xB0: [b"a", None],
+                0xB1: [b"a", None],
+                0xB2: [b"e", None],
+                0xB3: [b"e", None],
+                0xB4: [b"i", None],
+                0xB5: [b"i", None],
+                0xB6: [b"i", None],
+                0xB7: [b"i", None],
+                0xB8: [b"o", None],
+                0xB9: [b"o", None],
+                0xBA: [b"u", None]
+            }],
+            0xBE: [b"", {
+                0xBA: [b"A", None],
+                0xBB: [b"A", None],
+                0xBF: [b"'", None]
+            }],
+            0xBF: [b"", {
+                0x86: [b"i", None],
+                0x88: [b"E", None],
+                0x89: [b"E", None],
+                0x8A: [b"I", None],
+                0x8B: [b"I", None],
+                0x96: [b"i", None],
+                0x9A: [b"I", None],
+                0x9B: [b"I", None],
+                0xA6: [b"u", None],
+                0xAA: [b"U", None],
+                0xB6: [b"o", None],
+                0xB8: [b"O", None],
+                0xB9: [b"O", None],
+                0xBE: [b"'", None]
             }]
         }],
         0xE2: [b"", {
