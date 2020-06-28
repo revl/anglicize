@@ -1,7 +1,4 @@
-/*
- * This program generates the xlat_tree.py Python module
- * for use by anglicize.py.
- */
+// This program updates the XLAT_TREE structure inside anglicize.py.
 
 #include <map>
 #include <string>
@@ -28,9 +25,8 @@ struct XLatEntry
 
 struct XLatTreeNode;
 
-// NodeMap matches the xlat_tree structure in the resulting
-// xlat_tree.py Python module.
-typedef std::map<char, XLatTreeNode*> NodeMap;
+// NodeMap matches the XLAT_TREE structure in ../src/anglicize.py.
+typedef std::map<char, std::unique_ptr<XLatTreeNode>> NodeMap;
 
 struct XLatTreeNode
 {
@@ -42,75 +38,54 @@ struct XLatTreeNode
 	}
 };
 
-// This class builds a tree out of byte sequences of
-// the input UTF-8 characters.
-class XLatTreeGenerator
-{
-public:
-	void AddXLatEntry(const XLatEntry& xlat_entry);
-	std::string GenerateXLatTree() const;
-
-private:
-	static void PrintIndent(int indent, std::ostream& os);
-	static void PrintTreeNode(std::ostream& os,
-		const NodeMap* tree_node, int indent);
-
-	NodeMap xlat_tree_root;
-};
-
-// This is the main procedure.
-void XLatTreeGenerator::AddXLatEntry(const XLatEntry& xlat_entry)
+// Build a tree out of byte sequences of the input UTF-8 characters.
+static void add_xlat_entry(NodeMap& xlat_tree_root, const XLatEntry& xlat_entry)
 {
 	const char* ch = xlat_entry.from;
-	NodeMap* tree_node = &xlat_tree_root;
 
-	// Create nodes in the output tree for all but one
-	// bytes in the input UTF-8 character.
-	while (ch[1] != '\0')
+	assert(*ch != '\0');
+
+	// Create nodes in the output tree for all but the last
+	// byte in the input UTF-8 character.
+
+	auto [node, inserted] = xlat_tree_root.emplace(*ch, nullptr);
+
+	while (*++ch != '\0')
 	{
-		std::pair<NodeMap::iterator, bool> insertion =
-				tree_node->insert(
-						NodeMap::value_type(*ch, NULL));
-		if (insertion.second)
-			insertion.first->second = new XLatTreeNode(NULL);
-		tree_node = &insertion.first->second->children;
-		++ch;
+		if (inserted)
+			node->second = std::make_unique<XLatTreeNode>(nullptr);
+
+		std::tie(node, inserted) =
+			node->second->children.emplace(*ch, nullptr);
 	}
 
-	// Mark the node of the last byte as "finite" by assigning the
-	// transliteration of the UTF-character to it.
-	std::pair<NodeMap::iterator, bool> insertion =
-			tree_node->insert(NodeMap::value_type(*ch, NULL));
+	// Mark the node of the last byte as final by assigning
+	// the transliteration of the UTF-character to it.
+	if (inserted)
+		node->second = std::make_unique<XLatTreeNode>(xlat_entry.to);
+	else
+	{
+		assert(node->second->encoded == nullptr &&
+			"Duplicate entries are not allowed");
 
-	assert(insertion.second && "Duplicate entries are not allowed");
-
-	insertion.first->second = new XLatTreeNode(xlat_entry.to);
+		node->second->encoded = xlat_entry.to;
+	}
 }
 
-std::string XLatTreeGenerator::GenerateXLatTree() const
-{
-	std::stringstream ss;
-
-	ss << XLAT_TREE_BEGIN;
-	PrintTreeNode(ss, &xlat_tree_root, 1);
-
-	return ss.str();
-}
-
-void XLatTreeGenerator::PrintIndent(int indent, std::ostream& os)
+static void print_indent(int indent, std::ostream& os)
 {
 	while (--indent >= 0)
 		os << "    ";
 }
 
-void XLatTreeGenerator::PrintTreeNode(
-	std::ostream& os, const NodeMap* tree_node, int indent)
+static void print_tree_node(
+	std::ostream& os, const NodeMap& tree_node, int indent)
 {
 	os << "{\n";
-	NodeMap::const_iterator it = tree_node->begin();
+	NodeMap::const_iterator it = tree_node.begin();
 	for (;;)
 	{
-		PrintIndent(indent + 1, os);
+		print_indent(indent + 1, os);
 		os << "0x" << std::uppercase << std::hex <<
 			std::setw(2) << std::setfill('0') <<
 			(unsigned) (unsigned char) it->first << ": [b\"";
@@ -120,8 +95,8 @@ void XLatTreeGenerator::PrintTreeNode(
 		if (it->second->children.empty())
 			os << "None";
 		else
-			PrintTreeNode(os, &it->second->children, indent + 1);
-		if (++it != tree_node->end())
+			print_tree_node(os, it->second->children, indent + 1);
+		if (++it != tree_node.end())
 			os << "],\n";
 		else
 		{
@@ -129,7 +104,7 @@ void XLatTreeGenerator::PrintTreeNode(
 			break;
 		}
 	}
-	PrintIndent(indent, os);
+	print_indent(indent, os);
 	os << '}';
 }
 
@@ -137,55 +112,63 @@ int main(int argc, const char* argv[])
 {
 	if (argc != 2)
 	{
-		std::cerr << "Usage: " << *argv << " OUTPUT_FILE" << std::endl;
+		std::cerr << "Usage: " << *argv <<
+			" ../src/anglicize.py" << std::endl;
 		return 1;
 	}
 
-	const std::string output_file_name = argv[1];
+	const std::string py_pathname = argv[1];
 
-	std::stringstream ss;
+	std::string py_code;
 
-	if (!(ss << std::ifstream(output_file_name).rdbuf()))
+	// Read anglicize.py contents into 'py_code'.
+	if (std::stringstream ss;
+			(ss << std::ifstream(py_pathname).rdbuf()))
+		py_code = ss.str();
+	else
 	{
-		std::cerr << output_file_name << ": IO error" << std::endl;
+		std::cerr << py_pathname << ": IO error" << std::endl;
 		return 1;
 	}
 
-	std::string python_code = ss.str();
-
-	const size_t xlat_tree_pos = python_code.find(XLAT_TREE_BEGIN);
+	size_t xlat_tree_pos = py_code.find(XLAT_TREE_BEGIN);
 
 	if (xlat_tree_pos == std::string::npos)
 	{
-		std::cerr << output_file_name <<
+		std::cerr << py_pathname <<
 			": couldn't locate generated content" << std::endl;
 		return 1;
 	}
 
+	xlat_tree_pos += sizeof(XLAT_TREE_BEGIN) - 1;
+
 	size_t xlat_tree_end_pos =
-		python_code.find(XLAT_TREE_END, xlat_tree_pos);
+		py_code.find(XLAT_TREE_END, xlat_tree_pos);
 
 	if (xlat_tree_end_pos == std::string::npos)
 	{
-		std::cerr << output_file_name << ": no closing bracket "
+		std::cerr << py_pathname << ": no closing bracket "
 			"for generated content" << std::endl;
 		return 1;
 	}
 
 	xlat_tree_end_pos += sizeof(XLAT_TREE_END) - 1;
 
-	XLatTreeGenerator generator;
+	NodeMap xlat_tree_root;
 
 	// For each input UTF-8 character.
 	for (const auto xlat_entry : xlat_entries)
-		generator.AddXLatEntry(xlat_entry);
+		add_xlat_entry(xlat_tree_root, xlat_entry);
 
-	// Replace generated content.
-	python_code.replace(xlat_tree_pos, xlat_tree_end_pos - xlat_tree_pos,
-		generator.GenerateXLatTree());
+	// Rewrite anglicize.py.
+	std::ofstream os(py_pathname);
 
-	std::ofstream os(output_file_name);
-	os.write(python_code.data(), python_code.length());
+	os.write(py_code.data(), xlat_tree_pos);
+
+	print_tree_node(os, xlat_tree_root, 1);
+
+	os.write(py_code.data() + xlat_tree_end_pos,
+		py_code.length() - xlat_tree_end_pos);
 
 	return 0;
 }
