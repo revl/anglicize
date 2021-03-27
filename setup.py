@@ -9,5 +9,5 @@ setup(
     author_email="him@revl.org",
     packages=[],
     package_dir={"": "src"},
-    py_modules=["anglicize", "xlat_tree"],
+    py_modules=["anglicize"],
 )
